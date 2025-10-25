@@ -132,7 +132,6 @@ namespace GymManagementDAL.Migrations
                         .HasColumnType("varchar");
 
                     b.Property<string>("Photo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -247,7 +246,7 @@ namespace GymManagementDAL.Migrations
                     b.Property<DateTime>("EndDAte")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("StartDAte")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("TrainerId")
