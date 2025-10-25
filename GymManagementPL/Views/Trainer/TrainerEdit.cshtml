@@ -63,26 +63,13 @@
                                     Specializations <span class="text-danger">*</span>
                                 </label>
 
-                                <div class="form-check">
-                                    <input asp-for="Specialities" class="form-check-input" type="radio" name="Specialties"
-                                           value="GeneralFitness" />
-                                    <label asp-for="Specialities" class="form-check-label">GeneralFitness</label>
-                                </div>
-                                <div class="form-check">
-                                    <input asp-for="Specialities" class="form-check-input" type="radio" name="Specialties"
-                                           value="Yoga" />
-                                    <label asp-for="Specialities" class="form-check-label">Yoga</label>
-                                </div>
-                                <div class="form-check">
-                                    <input asp-for="Specialities" class="form-check-input" type="radio" name="Specialties"
-                                           value="Boxing" />
-                                    <label asp-for="Specialities" class="form-check-label">Boxing</label>
-                                </div>
-                                <div class="form-check">
-                                    <input asp-for="Specialities" class="form-check-input" type="radio" name="Specialties"
-                                           value="CrossFit" />
-                                    <label asp-for="Specialities" class="form-check-label">CrossFit</label>
-                                </div>
+                                @foreach (var speciality in Enum.GetValues(typeof(Specialities)))
+                                {
+                                    <div>
+                                        <input asp-for="Specialities" type="radio" value="@speciality" id="@speciality" class="form-check-input" />
+                                        <label for="@speciality">@speciality</label>
+                                    </div>
+                                }
                             </div>
                         </div>
 
