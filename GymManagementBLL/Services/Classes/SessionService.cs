@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using GymManagementBLL.Services.Interfaces;
-using GymManagementBLL.ViewModels.SessionViewModels;
+using GymManagementBLL.ViewModels;
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
 using System;
@@ -82,7 +82,10 @@ namespace GymManagementBLL.Services.Classes
             if (!IsTrainerExist(input.TrainerId)) return false;
             if(!IsValidDateRange(input.StartDate, input.EndDate)) return false;
 
-            _mapper.Map<Session>(input);
+            session.TrainerId = input.TrainerId;
+            session.StartDate = input.StartDate;
+            session.EndDAte = input.EndDate;
+            session.Description = input.Description;
             session.UpdatedAt = DateTime.UtcNow;
 
             _unitOfWork.GetRepository<Session>().Update(session);
@@ -98,6 +101,17 @@ namespace GymManagementBLL.Services.Classes
 
             _unitOfWork.GetRepository<Session>().Delete(session);
             return _unitOfWork.SaveChanges() > 0;
+        }
+        public IEnumerable<CategorySelectViewModel> GetCategoriesDropdown()
+        {
+            var categories = _unitOfWork.GetRepository<Category>().GetAll();
+            return _mapper.Map<IEnumerable<CategorySelectViewModel>>(categories);
+        }
+
+        public IEnumerable<TrainerSelectViewModel> GetTrainersDropdown()
+        {
+            var trainers = _unitOfWork.GetRepository<Trainer>().GetAll();
+            return _mapper.Map<IEnumerable<TrainerSelectViewModel>>(trainers);
         }
 
         #region Helper Methods
@@ -137,7 +151,6 @@ namespace GymManagementBLL.Services.Classes
 
             return true;
         }
-
         #endregion
     }
 }
