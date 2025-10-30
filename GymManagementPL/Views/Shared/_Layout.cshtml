@@ -40,10 +40,13 @@
 						<li class="nav-item">
 							<a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Home" ? "active" : "text-black-alternative")" asp-action="Index" asp-controller="Home">Home</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Member" ? "active" : "text-black-alternative")" asp-action="Index" asp-controller="Member">Members</a>
-						</li>
-						<li class="nav-item">
+							@if (User.IsInRole("SuperAdmin"))
+							{
+							<li class="nav-item">
+								<a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Member" ? "active" : "text-black-alternative")" asp-action="Index" asp-controller="Member">Members</a>
+							</li>
+							}
+							<li class="nav-item">
 							<a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Trainer" ? "active" : "text-black-alternative")" asp-action="Index" asp-controller="Trainer">Trainers</a>
 						</li>
 						<li class="nav-item">
@@ -57,6 +60,13 @@
 						</li>
 						<li class="nav-item">
 							<a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "SessionsSchedule" ? "active" : "text-black-alternative")" asp-action="Index" asp-controller="Home">Sessions Schedule</a>
+						</li>
+						<li class="nav-item">
+							<form asp-action="Logout" asp-controller="Account" method="post" class="d-inline">
+								<button type="submit" id="logoutBtn" class="btn btn-danger nav-link px-3 py-2 mx-2 fw-bold fs-6 text-black-alternative">
+									Logout <i class="bi bi-box-arrow-right fw-bolder"></i>
+								</button>
+							</form>
 						</li>
 					</ul>
 				</div>
