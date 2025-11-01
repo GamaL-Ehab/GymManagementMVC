@@ -78,6 +78,9 @@ pre {
         color: #fff;
     }
 
+#logoutBtn:hover{
+    color: white;
+}
 /* ^ Start Header */
 header.home-section header p {
     position: relative;
