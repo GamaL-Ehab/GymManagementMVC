@@ -29,6 +29,19 @@ namespace GymManagementBLL
             CreateMap<Category, CategorySelectViewModel>()
                     .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.CategoryName));
             CreateMap<Trainer, TrainerSelectViewModel>();
+
+            CreateMap<Membership, MemberShipViewModel>()
+                .ForMember(dest => dest.MemberName, opt => opt.MapFrom(src => src.Member.Name))
+                .ForMember(dest => dest.PlanName, opt => opt.MapFrom(src => src.Plan.Name))
+                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.CreatedAt))
+                .ReverseMap();
+            CreateMap<CreateMemberShipViewModel, Membership>();         
+            CreateMap<Member, MemberSelectListViewModel>();
+            CreateMap<Plan, PlanSelectListViewModel>();
+
+            CreateMap<Session, SessionViewModel>()
+                .ForMember(dest => dest.TrainerName , opt => opt.MapFrom(src => src.Trainer.Name))
+                .ReverseMap();
         }
     }
 }

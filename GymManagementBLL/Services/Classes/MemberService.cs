@@ -1,4 +1,5 @@
-﻿using GymManagementBLL.Services.Interfaces;
+﻿using GymManagementBLL.Services.AttachmentService;
+using GymManagementBLL.Services.Interfaces;
 using GymManagementBLL.ViewModels;
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
@@ -13,10 +14,12 @@ namespace GymManagementBLL.Services.Classes
     public class MemberService : IMemberService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IAttachmentService _attachmentService;
 
-        public MemberService(IUnitOfWork unitOfWork)
+        public MemberService(IUnitOfWork unitOfWork, IAttachmentService attachmentService)
         {
             _unitOfWork = unitOfWork;
+            _attachmentService = attachmentService;
         }
 
         public bool CreateMember(CreateMemberViewModel model)
@@ -28,8 +31,13 @@ namespace GymManagementBLL.Services.Classes
                 if(IsPhoneExist(model.Phone)) 
                     return false;
 
+                var photoName = _attachmentService.Upload("members", model.Photo);
+                if (model.Photo is null)
+                    photoName = null;
+
                 var member = new Member
                 {
+                    Photo = photoName,
                     Name = model.Name,
                     Email = model.Email,
                     Phone = model.Phone,
@@ -51,8 +59,16 @@ namespace GymManagementBLL.Services.Classes
                 };
 
                 _unitOfWork.GetRepository<Member>().Add(member);
-                _unitOfWork.SaveChanges();
-                return true;
+                bool isCreated = _unitOfWork.SaveChanges() > 0;
+                if (!isCreated)
+                {
+                    _attachmentService.Delete(photoName, "members");
+                    return false;
+                }
+                else
+                {
+                    return isCreated;
+                }
             }
             catch (Exception)
             {
@@ -182,8 +198,14 @@ namespace GymManagementBLL.Services.Classes
                 }
 
                 _unitOfWork.GetRepository<Member>().Delete(member);
-                _unitOfWork.SaveChanges();
-                return true;
+                bool isDeleted = _unitOfWork.SaveChanges() > 0;
+                if (member.Photo is not null)
+                {
+                    if (isDeleted)
+                        _attachmentService.Delete(member.Photo, "members");
+                }
+
+                return isDeleted;
             }
             catch (Exception)
             {

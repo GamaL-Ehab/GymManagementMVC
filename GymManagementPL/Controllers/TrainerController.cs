@@ -1,10 +1,12 @@
 ﻿using GymManagementBLL.Services.Classes;
 using GymManagementBLL.Services.Interfaces;
 using GymManagementBLL.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymManagementPL.Controllers
 {
+    [Authorize]
     public class TrainerController : Controller
     {
         private readonly ITrainerService _trainerService;
@@ -82,6 +84,7 @@ namespace GymManagementPL.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Delete([FromRoute] int id)
         {
             if (id <= 0)

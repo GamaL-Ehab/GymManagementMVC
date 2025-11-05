@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GymManagementPL.Controllers
 {
-    [Authorize(Roles = "SuperAdmin")]
+    [Authorize]
     public class MemberController : Controller
     {
         private readonly IMemberService _memberService;
@@ -89,6 +89,7 @@ namespace GymManagementPL.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Delete([FromRoute] int id)
         {
             if(id <= 0)
@@ -109,6 +110,7 @@ namespace GymManagementPL.Controllers
 
             return View();
         }
+        [Authorize(Roles = "SuperAdmin")]
         [HttpPost]
         public IActionResult DeleteConfirmed([FromForm] int id)
         {

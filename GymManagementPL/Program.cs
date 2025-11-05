@@ -1,4 +1,5 @@
 using GymManagementBLL;
+using GymManagementBLL.Services.AttachmentService;
 using GymManagementBLL.Services.Classes;
 using GymManagementBLL.Services.Interfaces;
 using GymManagementDAL.Data.Contexts;
@@ -26,13 +27,20 @@ namespace GymManagementPL
             });
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             builder.Services.AddScoped<ISessionRepository, SessionRepository>();
+            builder.Services.AddScoped<IMembershipRepository, MembershipRepository>();
+            builder.Services.AddScoped<IBookingRepository,  BookingRepository>();
+
             builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
             builder.Services.AddScoped<IMemberService, MemberService>();
             builder.Services.AddScoped<ITrainerService, TrainerService>();
             builder.Services.AddScoped<IPlanService, PlanService>();
             builder.Services.AddScoped<ISessionService, SessionService>();
+            builder.Services.AddScoped<IMembershipService, MembershipService>();
+            builder.Services.AddScoped<IBookingService, BookingService>();
             builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IAttachmentService, AttachmentService>();
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
