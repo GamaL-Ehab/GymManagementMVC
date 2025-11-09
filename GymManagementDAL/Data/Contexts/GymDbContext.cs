@@ -14,7 +14,7 @@ namespace GymManagementDAL.Data.Contexts
     {
         public GymDbContext(DbContextOptions<GymDbContext> options) : base(options)
         {
-
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
