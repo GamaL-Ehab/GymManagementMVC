@@ -21,7 +21,7 @@ else if (TempData["ErrorMessage"] != null)
 	</div>
 }
 
-<header class="bg-primary text-white rounded-3 p-4 shadow-sm mt-5 mb-4">
+<header class="bg-primary text-white rounded-3 p-4 shadow-sm mb-4">
 	<div class="d-flex justify-content-between align-items-center">
 		<div>
 			<h2 class="mb-1 fw-semibold">Session Members</h2>
@@ -82,10 +82,9 @@ else if (TempData["ErrorMessage"] != null)
 			</div>
 		}
 	</div>
-
-	<a asp-controller="Booking" asp-action="Index" class="btn btn-fill ">Back to List</a>
-
 </div>
+	<a asp-controller="Booking" asp-action="Index" class="btn btn-outline-secondary mt-3"><i class="bi bi-arrow-left me-1"></i> Back to List</a>
+
 @section Scripts {
 	<partial name="_AlertBoxScript" />
 }

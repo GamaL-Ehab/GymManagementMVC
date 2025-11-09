@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<TrainerViewModel>;
 @{
-	ViewData["Title"] = "Index";
+	ViewData["Title"] = "Trainers";
 }
 
 @if (TempData["SuccessMessage"] != null)
@@ -20,6 +20,113 @@ else if (TempData["ErrorMessage"] != null)
 	</div>
 }
 
+
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+	<div>
+		<h1 class="fw-bold text-primary mb-0 d-flex align-items-center gap-2">
+			<span class="material-symbols-outlined fs-1">
+				groups_2
+			</span>
+			<span>Trainers List</span>
+		</h1>
+		<p class="text-muted">Manage your gym trainers</p>
+	</div>
+	<a asp-action="Create" class="btn btn-primary d-flex align-items-center gap-2 mt-2 mt-sm-0">
+		<span class="material-symbols-outlined">person_add</span>
+		Add Trainer
+	</a>
+</div>
+
+@if (Model != null && Model.Any())
+{
+	<div class="table bg-main">
+		<table class="table table-hover table-striped align-middle">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th class="d-none d-md-table-cell">Email</th>
+					<th>Phone</th>
+					<th>Specialization</th>
+					<th class="text-center">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var trainer in Model)
+				{
+					<tr>
+						<td class="fw-bold">@trainer.Name</td>
+						<td class="d-none d-md-table-cell">@trainer.Email</td>
+						<td>@trainer.Phone</td>
+						<td><span class="badge text-bg-primary rounded-3">@trainer.Specialities</span></td>
+						<td class="action text-center">
+							<div class="dropdown">
+								<button class="btn btn-link p-0 border-0" type="button"
+										id="dropdownMenuButton-member.Id" data-bs-toggle="dropdown"
+										aria-expanded="false">
+									<span class="material-symbols-outlined">
+										more_horiz
+									</span>
+								</button>
+								<ul class="dropdown-menu dropdown-menu-start"
+									aria-labelledby="dropdownMenuButton-member.Id">
+									<li>
+										<a asp-controller="Trainer" asp-action="TrainerDetails" asp-route-Id="@trainer.Id"
+										   class="dropdown-item d-flex align-items-center gap-3">
+											<span class="material-symbols-outlined">
+												info
+											</span>
+											<span>View Details</span>
+										</a>
+									</li>
+									<li>
+										<hr class="dropdown-divider">
+									</li>
+									<li>
+										<a asp-controller="Trainer" asp-action="TrainerEdit" asp-route-Id="@trainer.Id"
+										   class="dropdown-item d-flex align-items-center gap-3">
+											<span class="material-symbols-outlined">
+												person_edit
+											</span>
+											<span>Edit Details</span>
+										</a>
+									</li>
+									<li>
+										<hr class="dropdown-divider">
+									</li>
+									<li>
+										<a asp-controller="Trainer" asp-action="Delete" asp-route-Id="@trainer.Id"
+										   class="dropdown-item d-flex align-items-center gap-3 text-danger">
+											<span class="material-symbols-outlined">
+												delete
+											</span>
+											<span>Delete</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+}
+else
+{
+	<div class="text-center py-5">
+		<i class="bi bi-person-workspace display-1 text-muted"></i>
+		<h4 class="mt-3 text-muted">No Trainers Available</h4>
+		<p class="text-muted">Add your first Trainer to get started</p>
+	</div>
+}
+
+@section Scripts {
+	<partial name="_AlertBoxScript" />
+}
+
+
+
+@* 
 <div class="container">
     <header class="d-flex justify-content-between mt-5 mb-4 align-items-center">
         <div>
@@ -112,4 +219,4 @@ else if (TempData["ErrorMessage"] != null)
     }
 
 
-</div>
+</div> *@

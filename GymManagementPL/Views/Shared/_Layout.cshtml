@@ -3,83 +3,114 @@
 }
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-bs-theme="dark">
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta name="author" />
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
-		  rel="stylesheet" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="~/favicon0.ico" rel="icon" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
-	<!-- ^ Bootstrap 5.3.8 css file -->
-	<link rel="stylesheet" href="~/css/bootstrap.min.css" />
-	<!-- ^ Our main css file -->
-	<link rel="stylesheet" href="~/css/style.css" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link href="~/css/site.css" rel="stylesheet" />
 	<title>Power fitness | @ViewData["Title"] </title>
 </head>
-
 <body>
-	<header>
-		<!-- ^ navbar -->
-		<nav class="navbar navbar-expand-lg bg-white my-3">
-			<div class="container">
-				<a class="navbar-brand" href="#">
-					<img src="./images/logo.jpg" alt="" />
-				</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-						aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav m-auto mb-2 mb-lg-0 mt-3 mt-lg-0">
-						<li class="nav-item">
-						<li class="nav-item">
-							<a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Home" ? "active" : "text-black-alternative")" asp-action="Index" asp-controller="Home">Home</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Member" ? "active" : "text-black-alternative")" asp-action="Index" asp-controller="Member">Members</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Trainer" ? "active" : "text-black-alternative")" asp-action="Index" asp-controller="Trainer">Trainers</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Session" ? "active" : "text-black-alternative")" asp-action="Index" asp-controller="Session">Sessions</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Plan" ? "active" : "text-black-alternative")" asp-action="Index" asp-controller="Plan">Plans</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Membership" ? "active" : "text-black-alternative")" asp-action="Index" asp-controller="Membership">Memberships</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Booking" ? "active" : "text-black-alternative")" asp-action="Index" asp-controller="Booking">Sessions Schedule</a>
-						</li>
-						<li class="nav-item">
-							<form asp-action="Logout" asp-controller="Account" method="post" class="d-inline">
-								<button type="submit" id="logoutBtn" class="nav-link px-3 py-2 mx-2 fw-bold fs-6 text-danger">
-									Logout <i class="bi bi-box-arrow-right fw-bolder"></i>
-								</button>
-							</form>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</header>
-	<div class="container">
-		<main role="main" class="pb-3">
-			@RenderBody()
-		</main>
-	</div>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="d-flex flex-column h-100">
+            <div class="mb-4">
+                <div class="d-flex align-items-center gap-3 px-2">
+					<span class="material-symbols-outlined fs-1">
+						exercise
+					</span>
+                    <div>
+                        <h6 class="mb-0 fw-medium">Power Fitness</h6>
+                        <small class="text-secondary">Management</small>
+                    </div>
+                </div>
+            </div>
 
+            <nav class="flex-grow-1">
+                <a class="nav-link @(currentController == "Home" ? "active" : "text-black-alternative")" asp-action="Index" asp-controller="Home">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span>Dashboard</span>
+                </a>
+                <a class="nav-link @(currentController == "Member" ? "active" : "")" asp-action="Index" asp-controller="Member">
+                    <span class="material-symbols-outlined">group</span>
+                    <span>Members</span>
+                </a>
+                <a class="nav-link @(currentController == "Trainer" ? "active" : "")" asp-action="Index" asp-controller="Trainer">
+					<span class="material-symbols-outlined">physical_therapy</span>
+                    <span>Trainers</span>
+                </a>
+                <a class="nav-link @(currentController == "Plan" ? "active" : "")" asp-action="Index" asp-controller="Plan">
+                    <span class="material-symbols-outlined">receipt_long</span>
+                    <span>Plans</span>
+                </a>
+                <a class="nav-link @(currentController == "Session" ? "active" : "")" asp-action="Index" asp-controller="Session">
+                    <span class="material-symbols-outlined">dataset</span>
+                    <span>Sessions</span>
+                </a>
+                <a class="nav-link @(currentController == "Membership" ? "active" : "")" asp-action="Index" asp-controller="Membership">
+                    <span class="material-symbols-outlined">diamond</span>
+                    <span>Memberships</span>
+                </a>
+                <a class="nav-link @(currentController == "Booking" ? "active" : "")" asp-action="Index" asp-controller="Booking">
+					<span class="material-symbols-outlined">calendar_month</span>
+                    <span>Sessions Schedule</span>
+                </a>
+            </nav>
 
-	<script src="~/lib/jquery/dist/jquery.min.js"></script>
-	<script src="~/js/bootstrap.bundle.min.js"></script>
-	<script src="~/js/site.js" asp-append-version="true"></script>
-	@await RenderSectionAsync("Scripts", required: false);
+            <div class="mt-auto">
+				<form asp-action="Logout" asp-controller="Account" method="post" class="d-inline">
+					<button type="submit" id="logoutBtn" class="btn btn-outline-danger w-100 d-flex justify-content-center">
+						<span>logout </span>
+						<span class="material-symbols-outlined">
+							logout
+						</span>
+					</button>
+				</form>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Header -->
+        <header class="header py-3 px-4">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-3 flex-grow-1">
+                    <button class="btn btn-link d-lg-none p-0" id="sidebarToggle">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn bg-secondary-subtle rounded-circle d-flex align-items-center justify-content-center" id="theme-toggle">
+                        <span class="material-symbols-outlined" id="theme-icon">dark_mode</span>
+                        </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="container-fluid p-4">
+                    @RenderBody()
+        </div>
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+@section Scripts {
+	<partial name="_AlertBoxScript" />
+}
+

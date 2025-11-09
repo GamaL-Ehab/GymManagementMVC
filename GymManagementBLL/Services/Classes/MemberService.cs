@@ -92,7 +92,8 @@ namespace GymManagementBLL.Services.Classes
                 Email = x.Email,
                 Phone = x.Phone,
                 DateOfBirth = x.DateOfBirth.ToShortDateString(),
-                Gender = x.Gender.ToString()
+                Gender = x.Gender.ToString(),
+                isActive = _unitOfWork.MembershipRepository.GetAll(m => m.MemberId == x.Id && m.EndDate > DateTime.Now).FirstOrDefault() != null
             });
 
             return memberViewModel;
@@ -180,7 +181,7 @@ namespace GymManagementBLL.Services.Classes
                 return false;
 
             var activeBookings = _unitOfWork.GetRepository<Booking>()
-                                 .GetAll(x => x.MemberId == memberId && x.Session.StartDate > DateTime.Now);
+                                 .GetAll(x => x.MemberId == memberId && x.Session?.StartDate > DateTime.UtcNow);
 
             if(activeBookings.Any())
                 return false;

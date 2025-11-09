@@ -5,15 +5,23 @@
 
 <div class="container mt-5">
 	<div class="row justify-content-center">
-		<div class="col-md-6">
-			<div class="card card-details border-0 p-2 shadow">
+		<div class="col-lg-6">
+			<div class="card card-details border-primary rounded-5 p-2 shadow">
 				<div class="card-body text-center">
 					<div class="text-center mt-3">
-						<img src="~/images/@Model.Photo" alt="@Model.Name" class="rounded-circle"
-							 style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #fff; margin-top: -60px;" />
+						@if(Model.Photo != null)
+						{
+							<img src="~/images/members/@Model.Photo" alt="@Model.Name" class="rounded-circle"
+								 style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #fff; margin-top: -60px;" />
+						}
+						else
+						{
+							<img src="~/images/members/user.png" alt="@Model.Name" class="rounded-circle"
+								 style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #fff; margin-top: -60px;" />
+						}
 					</div>
 					<div class="card-body text-center">
-						<h2 class="mb-1 text-primary-color">Name</h2>
+						<h2 class="mb-1 text-primary-color">@Model.Name</h2>
 						<form asp-controller="Member" asp-action="MemberEdit" method="post">
 							<input asp-for="Photo" hidden readonly />
 							<input asp-for="Name" hidden readonly />
@@ -21,14 +29,14 @@
 							<div class="mt-4 text-start">
 								<div class="row g-3">
 									<div class="col-12">
-										<div class="p-3 bg-light rounded">
+										<div class="p-3 rounded">
 											<small class="text-muted d-block mb-1">Email</small>
 											<input asp-for="Email" class="form-control" />
 											<span asp-validation-for="Email" class="text-danger"></span>
 										</div>
 									</div>
 									<div class="col-6">
-										<div class="p-3 bg-light rounded">
+										<div class="p-3 rounded">
 											<small class="text-muted d-block mb-1">Phone</small>
 											<input asp-for="Phone" class="form-control" />
 											<span asp-validation-for="Phone" class="text-danger"></span>
@@ -36,7 +44,7 @@
 									</div>
 
 									<div class="col-6">
-										<div class="p-3 bg-light rounded">
+										<div class="p-3 rounded">
 											<small class="text-muted d-block mb-1">Building Number</small>
 											<input asp-for="BuildingNumber" class="form-control" />
 											<span asp-validation-for="BuildingNumber"
@@ -44,14 +52,14 @@
 										</div>
 									</div>
 									<div class="col-6">
-										<div class="p-3 bg-light rounded">
+										<div class="p-3 rounded">
 											<small class="text-muted d-block mb-1">City</small>
 											<input asp-for="City" class="form-control" />
 											<span asp-validation-for="City" class="text-danger"></span>
 										</div>
 									</div>
 									<div class="col-6">
-										<div class="p-3 bg-light rounded">
+										<div class="p-3 rounded">
 											<small class="text-muted d-block mb-1">Street</small>
 											<input asp-for="Street" class="form-control" />
 											<span asp-validation-for="Street" class="text-danger"></span>
@@ -62,11 +70,10 @@
 
 
 							<div class="d-flex justify-content-between gap-2 mt-3 px-3 pb-3">
-								<a asp-controller="Member" asp-action="Index" class="btn btn-fill ">
-									Back to
-									List
+								<a asp-controller="Member" asp-action="Index" class="btn btn-outline-secondary ">
+									<i class="bi bi-arrow-left"></i> Back to list
 								</a>
-								<button type="submit" class="btn btn-fill ">Done</button>
+								<button type="submit" class="btn btn-primary "><i class="bi bi-floppy-fill"></i> Done</button>
 							</div>
 						</form>
 					</div>

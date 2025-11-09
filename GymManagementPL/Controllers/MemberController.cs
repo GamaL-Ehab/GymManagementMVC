@@ -52,7 +52,7 @@ namespace GymManagementPL.Controllers
 
             bool result = _memberService.CreateMember(input);
             if (result)
-                TempData["SuccessMessage"] = "Member Created Successflly!";
+                TempData["SuccessMessage"] = "Member Created Successfully!";
             else
                 TempData["ErrorMessage"] = "Member Failed To Create, Phone Number or Email Already Exist!";
 
@@ -82,7 +82,7 @@ namespace GymManagementPL.Controllers
 
             bool result = _memberService.UpdateMemberDetails(id, input);
             if (result)
-                TempData["SuccessMessage"] = "Member Updated Successflly!";
+                TempData["SuccessMessage"] = "Member Updated Successfully!";
             else
                 TempData["ErrorMessage"] = "Member Failed To Update, Phone Number or Email Already Exist!";
 
@@ -116,7 +116,7 @@ namespace GymManagementPL.Controllers
         {
             var result = _memberService.RemoveMember(id);
             if (result)
-                TempData["SuccessMessage"] = "Member Deleted Successflly!";
+                TempData["SuccessMessage"] = "Member Deleted Successfully!";
             else
                 TempData["ErrorMessage"] = "Member Can Not Be Deleted!";
 

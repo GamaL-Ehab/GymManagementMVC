@@ -5,17 +5,18 @@
 }
 
 <div class="container mt-4">
-    <header class="mb-4">
-        <h3 class="text-primary-color">Edit Plan</h3>
-        <p class="text-muted">Update plan details</p>
-    </header>
+
 
     @Html.ValidationMessage("WrongData", new { @class = "text-danger" })
 
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card shadow-sm border-0">
+            <div class="card shadow-sm border-primary rounded-5">
                 <div class="card-body p-4">
+                    <header class="mb-4 border-bottom border-primary">
+                        <h3 class="text-primary-color">Edit Plan</h3>
+                        <p class="text-muted">Update plan details</p>
+                    </header>
                     <form asp-action="Edit" method="post">
                         <div class="row g-3">
                             <div class="col-12">
@@ -52,10 +53,10 @@
                         </div>
 
                         <div class="d-flex justify-content-between mt-4 pt-3 border-top">
-                            <a asp-action="Index" class="btn btn-outline">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
                                 <i class="bi bi-arrow-left me-1"></i>Cancel
                             </a>
-                            <button type="submit" class="btn btn-fill">
+                            <button type="submit" class="btn btn-primary">
                                 <i class="bi bi-check-lg me-1"></i>Update Plan
                             </button>
                         </div>

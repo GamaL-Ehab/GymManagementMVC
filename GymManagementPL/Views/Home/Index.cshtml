@@ -1,8 +1,338 @@
-﻿@{
+﻿@model AnalyticsViewModel;
+@{
 	ViewData["Title"] = "Home Page";
 }
 
-<div class="row">
+<!-- Page Heading -->
+<div class="mb-4">
+	<h1 class="fw-bold text-primary display-6">Dashboard</h1>
+	<p class="text-muted">Welcome back, Manager!</p>
+</div>
+
+<!-- Stats Cards -->
+<div class="row g-4 mb-4">
+	<div class="col-md-8 col-xl-6 col-xxl-5">
+		<div class="card p-3 rounded-4 border-primary">
+			<h3>Members Overview</h3>
+			<div class="d-flex flex-wrap justify-content-around text-center mt-3">
+				<div>
+					<h3 class="fw-bold">@Model.TotalMembers</h3>
+					<p class="text-muted small">Total Members</p>
+				</div>
+				<div>
+					<h3 class="fw-bold text-success">@Model.ActiveMembers</h3>
+					<p class="text-muted small ms-1">Active Members</p>
+				</div>
+				<div>
+					<h3 class="fw-bold text-danger">@(Model.TotalMembers - Model.ActiveMembers)</h3>
+					<p class="text-muted small ms-1">Inactive Members</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4 col-xl-2 order-last order-md-0 order-lg-last">
+		<div class="card p-3 rounded-4 border-warning">
+			<h3>Trainers</h3>
+			<div class="text-center mt-3">
+				<h3 class="fw-bold">@Model.TotalTrainers</h3>
+				<p class="text-muted small">Total Trainers</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-8 col-xl-6 col-xxl-5">
+		<div class="card p-3 rounded-4 border-success">
+			<h3>Sessions Overview</h3>
+			<div class="d-flex flex-wrap justify-content-around text-center mt-3">
+				<div>
+					<h3 class="fw-bold text-success">@Model.CompletedSessions</h3>
+					<p class="text-muted small">Completed Sessions</p>
+				</div>
+				<div>
+					<h3 class="fw-bold">@Model.OngoingSessions</h3>
+					<p class="text-muted small ms-1">Ongoing Sessions</p>
+				</div>
+				<div>
+					<h3 class="fw-bold text-primary">@Model.UpcomingSessions</h3>
+					<p class="text-muted small ms-1">Upcoming Sessions</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Main Grid -->
+<div class="row g-4">
+	<!-- Left Column -->
+	<div class="col-lg-8">
+		<div class="card p-4 mb-4">
+			<h4 class="fw-bold mb-3">Upcoming Sessions Today</h4>
+
+			<div class="list-group">
+				<div class="list-group-item d-flex justify-content-between align-items-center bg-body-secondary rounded mb-2">
+					<div class="d-flex align-items-center gap-3">
+						<div class="bg-primary text-white d-flex justify-content-center align-items-center rounded p-2">
+							<span class="material-symbols-outlined">fitness_center</span>
+						</div>
+						<div>
+							<p class="fw-semibold mb-0">Morning HIIT Blast</p>
+							<small class="text-muted">Anna Kendrick</small>
+						</div>
+					</div>
+					<div class="text-end">
+						<p class="fw-semibold mb-0">9:00 AM</p>
+						<small class="text-muted">12 / 15 Registered</small>
+					</div>
+				</div>
+
+				<div class="list-group-item d-flex justify-content-between align-items-center mb-2">
+					<div class="d-flex align-items-center gap-3">
+						<div class="bg-success text-white d-flex justify-content-center align-items-center rounded p-2">
+							<span class="material-symbols-outlined">self_improvement</span>
+						</div>
+						<div>
+							<p class="fw-semibold mb-0">Vinyasa Flow Yoga</p>
+							<small class="text-muted">Mark Roberts</small>
+						</div>
+					</div>
+					<div class="text-end">
+						<p class="fw-semibold mb-0">12:30 PM</p>
+						<small class="text-muted">8 / 10 Registered</small>
+					</div>
+				</div>
+
+				<div class="list-group-item d-flex justify-content-between align-items-center">
+					<div class="d-flex align-items-center gap-3">
+						<div class="bg-danger text-white d-flex justify-content-center align-items-center rounded p-2">
+							<span class="material-symbols-outlined">sports_mma</span>
+						</div>
+						<div>
+							<p class="fw-semibold mb-0">Advanced Kickboxing</p>
+							<small class="text-muted">Jessica Jones</small>
+						</div>
+					</div>
+					<div class="text-end">
+						<p class="fw-semibold mb-0">6:00 PM</p>
+						<small class="text-muted">Full (5 waiting)</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Right Column -->
+	<div class="col-lg-4">
+		<div class="card p-4">
+			<h4 class="fw-bold mb-3">Quick Actions</h4>
+			<a asp-action="Create" asp-controller="Session" class="btn btn-outline-primary w-100 mb-2 d-flex justify-content-center p-2"><span class="material-symbols-outlined me-1">add</span>Create New Session</a>
+			<a asp-action="Create" asp-controller="Membership" class="btn btn-outline-primary w-100 mb-2 d-flex justify-content-center p-2"><span class="material-symbols-outlined me-1">add_card</span>New Membership</a>
+			<a asp-action="Create" asp-controller="Member" class="btn btn-outline-primary w-100 mb-2 d-flex justify-content-center p-2"><span class="material-symbols-outlined me-1">person_add</span>Add New Member</a>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+@* <!-- Page Heading -->
+<div class="mb-4">
+	<h1 class="display-4 fw-bold mb-2">Dashboard</h1>
+	<p class="text-secondary">Welcome back, @User.Identity?.Name!</p>
+</div>
+
+<!-- Stats -->
+<div class="row g-4 mb-4">
+	<div class="col-6 col-lg-3">
+		<div class="stat-card">
+			<p class="text-white-50 mb-2">Total Members</p>
+			<h2 class="display-5 fw-bold mb-2">@Model.TotalMembers</h2>
+		</div>
+	</div>
+	<div class="col-6 col-lg-3">
+		<div class="stat-card border-success">
+			<p class="text-white-50 mb-2">Active Members</p>
+			<h2 class="display-5 fw-bold mb-2 text-success">@Model.ActiveMembers</h2>
+		</div>
+	</div>
+	<div class="col-6 col-lg-3">
+		<div class="stat-card border-danger">
+			<p class="text-white-50 mb-2">InActive Members</p>
+			<h2 class="display-5 fw-bold mb-2 text-danger">@(@Model.TotalMembers - @Model.ActiveMembers)</h2>
+		</div>
+	</div>
+	<div class="col-6 col-lg-3">
+		<div class="stat-card">
+			<p class="text-white-50 mb-2">Total Trainer</p>
+			<h2 class="display-5 fw-bold mb-2">@Model.TotalTrainers</h2>
+		</div>
+	</div>
+	<div class="col-6 col-lg-3">
+		<div class="stat-card border-primary">
+			<p class="text-white-50 mb-2">Upcoming Sessions</p>
+			<h2 class="display-5 fw-bold mb-2">@Model.UpcomingSessions</h2>
+		</div>
+	</div>
+	<div class="col-6 col-lg-3">
+		<div class="stat-card">
+			<p class="text-white-50 mb-2">Ongoing Sessions</p>
+			<h2 class="display-5 fw-bold mb-2">@Model.OngoingSessions</h2>
+		</div>
+	</div>
+	<div class="col-6 col-lg-3">
+		<div class="stat-card border-success">
+			<p class="text-white-50 mb-2">Completed Sessions</p>
+			<h2 class="display-5 fw-bold mb-2">@Model.CompletedSessions</h2>
+		</div>
+	</div>
+</div>
+
+<!-- Main Grid -->
+<div class="row g-4">
+	<!-- Upcoming Sessions -->
+	<div class="col-12 col-lg-8">
+		<div class="stat-card">
+			<h3 class="h4 fw-bold mb-4">Upcoming Sessions Today</h3>
+			<div class="d-flex flex-column gap-3">
+				<div class="session-item">
+					<div class="d-flex align-items-center gap-3 flex-wrap">
+						<div class="session-icon" style="background-color: var(--primary);">
+							<span class="material-symbols-outlined">fitness_center</span>
+						</div>
+						<div class="flex-grow-1">
+							<h6 class="mb-1 fw-semibold">Morning HIIT Blast</h6>
+							<p class="text-secondary small mb-0">Anna Kendrick</p>
+						</div>
+						<div class="text-end">
+							<p class="mb-1 fw-medium">9:00 AM</p>
+							<p class="text-secondary small mb-0">12 / 15 Registered</p>
+						</div>
+					</div>
+				</div>
+				<div class="session-item">
+					<div class="d-flex align-items-center gap-3 flex-wrap">
+						<div class="session-icon" style="background-color: #28a745;">
+							<span class="material-symbols-outlined">self_improvement</span>
+						</div>
+						<div class="flex-grow-1">
+							<h6 class="mb-1 fw-semibold">Vinyasa Flow Yoga</h6>
+							<p class="text-secondary small mb-0">Mark Roberts</p>
+						</div>
+						<div class="text-end">
+							<p class="mb-1 fw-medium">12:30 PM</p>
+							<p class="text-secondary small mb-0">8 / 10 Registered</p>
+						</div>
+					</div>
+				</div>
+				<div class="session-item">
+					<div class="d-flex align-items-center gap-3 flex-wrap">
+						<div class="session-icon" style="background-color: #dc3545;">
+							<span class="material-symbols-outlined">sports_mma</span>
+						</div>
+						<div class="flex-grow-1">
+							<h6 class="mb-1 fw-semibold">Advanced Kickboxing</h6>
+							<p class="text-secondary small mb-0">Jessica Jones</p>
+						</div>
+						<div class="text-end">
+							<p class="mb-1 fw-medium">6:00 PM</p>
+							<p class="text-secondary small mb-0">Full (5 waiting)</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Right Column -->
+	<div class="col-12 col-lg-4">
+		<!-- Recent Sign-ups -->
+		<div class="stat-card mb-4">
+			<h3 class="h4 fw-bold mb-4">Recent Sign-ups</h3>
+			<div class="d-flex flex-column gap-3">
+				<div class="d-flex align-items-center gap-3">
+					<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUaEUREv19Om5cF1YWyC29OMlSj1iOJ3MD91BmukPnpZ40eTyze10bMtJRFCQJwkxedo44nd4DOai0pB8I1pbS_RED382J49CSLosjx_SYrsrytKlK4hLbZGAlM65HYvBkjkzWFSFq_ISz3TzZ5Mv4EB8Y2FGCLWyMhK0TkZ2r6v5H7giLQmoPjXeWZtwAHYnTKwnRHVt86JcC7spATuf48bEYSOE8wdkPPF4Tq-Uw1uw5bmOcxcwP5kozgk-eFXW9iLoOer0WcMT2" alt="Sarah Lee" class="rounded-circle" width="40" height="40">
+					<div>
+						<p class="mb-0 fw-medium small">Sarah Lee</p>
+						<p class="mb-0 text-secondary" style="font-size: 0.75rem;">Joined today</p>
+					</div>
+				</div>
+				<div class="d-flex align-items-center gap-3">
+					<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsygW9ejkF3X4lpnNsvjHSqPvdG3EDAKbg1KddBgMcNRYEefh3XBHdaqF1bXKeKWhyrVfA7DtPO856vy7wtICkJrX7ur6woFd1q6TmqkPk0Qxp5pq3jhvPZyntjp2dGUjNzrMRwnSrG46poAytb8WdEqie1Xrw2q35eRmYGGJuVjkwXU2aDPMEm_6jvo0qryJJ51syb2nXkHryqoSsjiWQOEYFFH6UbOnTmVTIVyzlPoReptVHXYLLyOy2J38hS2fJxdzqLYT_8NM8" alt="David Chen" class="rounded-circle" width="40" height="40">
+					<div>
+						<p class="mb-0 fw-medium small">David Chen</p>
+						<p class="mb-0 text-secondary" style="font-size: 0.75rem;">Joined yesterday</p>
+					</div>
+				</div>
+				<div class="d-flex align-items-center gap-3">
+					<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTlsV5rWSmNV3mGqUr2Advy_-rv8Ld3xGoxB38asCWXnpaLnweK7WB-LySB9sovwDVbvFdV5wJ5wxxK9I68bmatkMTYqOaILYQd3yeApGMKy2UwmVV1ddkEIbFTQkwU0BAHUtaZkQ_pVrHvXbd-G2uszcwMmFUK7GQPZtuXklSqv5EqCQhFDD1cQRlcoF1aMUAbUFYL0WTzuJvunswNYo2rAjlCRxnnI2woq1xQQJRtl8piFSF-ZOqNbuKaXy9nVg2YwrqLhYnHBiW" alt="Emily Rodriguez" class="rounded-circle" width="40" height="40">
+					<div>
+						<p class="mb-0 fw-medium small">Emily Rodriguez</p>
+						<p class="mb-0 text-secondary" style="font-size: 0.75rem;">Joined yesterday</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Quick Actions -->
+		<div class="stat-card">
+			<h3 class="h4 fw-bold mb-4">Quick Actions</h3>
+			<div class="d-flex flex-column gap-3">
+				<a asp-action="Create" asp-controller="Session" class="btn btn-outline-primary d-flex align-items-center justify-content-center gap-2">
+					<span class="material-symbols-outlined">add_circle</span>
+					Create Session
+				</a>
+				<button class="btn btn-outline-primary d-flex align-items-center justify-content-center gap-2">
+					<span class="material-symbols-outlined">payments</span>
+					Process Payment
+				</button>
+			</div>
+		</div>
+	</div>
+</div> *@
+
+@* <div class="container-fluid py-4">
+	<div class="row g-4">
+		<div class="col-md-3 col-sm-6">
+			<div class="card text-center shadow-sm p-3">
+				<h5 class="fw-semibold">Total Students</h5>
+				<h2 class="fw-bold text-primary">120</h2>
+			</div>
+		</div>
+		<div class="col-md-3 col-sm-6">
+			<div class="card text-center shadow-sm p-3">
+				<h5 class="fw-semibold">Active Courses</h5>
+				<h2 class="fw-bold text-success">8</h2>
+			</div>
+		</div>
+		<div class="col-md-3 col-sm-6">
+			<div class="card text-center shadow-sm p-3">
+				<h5 class="fw-semibold">Teachers</h5>
+				<h2 class="fw-bold text-warning">12</h2>
+			</div>
+		</div>
+		<div class="col-md-3 col-sm-6">
+			<div class="card text-center shadow-sm p-3">
+				<h5 class="fw-semibold">New Enrollments</h5>
+				<h2 class="fw-bold text-danger">24</h2>
+			</div>
+		</div>
+	</div>
+
+	<div class="mt-5">
+		<div class="card p-4 shadow-sm">
+			<h5 class="fw-semibold mb-3">Recent Activity</h5>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">John Doe joined the Math course</li>
+				<li class="list-group-item">Sara Ahmed completed “Advanced Physics”</li>
+				<li class="list-group-item">Mark uploaded new assignments</li>
+			</ul>
+		</div>
+	</div>
+</div> *@
+
+
+@* <div class="row">
 	<div class="col-md-6 col-lg-7 col-12">
 		<div class="info mt-4">
 			<header class="text-black-alternative">
@@ -392,4 +722,4 @@
 			</div>
 		</div>
 	</div>
-</footer>
+</footer> *@

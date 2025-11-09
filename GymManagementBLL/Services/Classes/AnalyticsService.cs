@@ -24,8 +24,8 @@ namespace GymManagementBLL.Services.Classes
 
             return new AnalyticsViewModel
             {
-                ActiveMembers = _unitOfWork.GetRepository<Membership>().GetAll(x => x.Status == "Active").Count(),
                 TotalMembers = _unitOfWork.GetRepository<Member>().GetAll().Count(),
+                ActiveMembers = _unitOfWork.GetRepository<Membership>().GetAll(x => x.Status == "Active").Count(),
                 TotalTrainers = _unitOfWork.GetRepository<Trainer>().GetAll().Count(),
                 UpcomingSessions = sessionRepository.GetAll(x => x.StartDate > DateTime.Now && x.EndDAte > DateTime.Now).Count(),
                 OngoingSessions = sessionRepository.GetAll(x => x.StartDate < DateTime.Now && x.EndDAte >= DateTime.Now).Count(),

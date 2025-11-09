@@ -76,6 +76,8 @@ namespace GymManagementPL
                 app.UseHsts();
             }
 
+            app.UseStaticFiles();
+
             app.UseHttpsRedirection();
             app.UseRouting();
 
