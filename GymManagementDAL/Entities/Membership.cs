@@ -24,5 +24,5 @@ namespace GymManagementDAL.Entities
         public int PlanId { get; set; }
         public Plan Plan { get; set; }
 
-    }
+    } 
 }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GymManagementBLL.ViewModels.MemberViewModels
+namespace GymManagementBLL.ViewModels
 {
     public class MemberViewModel
     {
@@ -21,5 +21,6 @@ namespace GymManagementBLL.ViewModels.MemberViewModels
         public string? PlanName { get; set; } = null;
         public string? MembershipStartDate { get; set; } = null;
         public string? MembershipEndDate { get; set; } = null;
+        public bool isActive { get; set; } = false;
     }
 }

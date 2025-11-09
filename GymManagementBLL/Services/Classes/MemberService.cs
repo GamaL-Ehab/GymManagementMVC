@@ -1,5 +1,6 @@
-﻿using GymManagementBLL.Services.Interfaces;
-using GymManagementBLL.ViewModels.MemberViewModels;
+﻿using GymManagementBLL.Services.AttachmentService;
+using GymManagementBLL.Services.Interfaces;
+using GymManagementBLL.ViewModels;
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
 using System;
@@ -13,10 +14,12 @@ namespace GymManagementBLL.Services.Classes
     public class MemberService : IMemberService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IAttachmentService _attachmentService;
 
-        public MemberService(IUnitOfWork unitOfWork)
+        public MemberService(IUnitOfWork unitOfWork, IAttachmentService attachmentService)
         {
             _unitOfWork = unitOfWork;
+            _attachmentService = attachmentService;
         }
 
         public bool CreateMember(CreateMemberViewModel model)
@@ -28,8 +31,13 @@ namespace GymManagementBLL.Services.Classes
                 if(IsPhoneExist(model.Phone)) 
                     return false;
 
+                var photoName = _attachmentService.Upload("members", model.Photo);
+                if (model.Photo is null)
+                    photoName = null;
+
                 var member = new Member
                 {
+                    Photo = photoName,
                     Name = model.Name,
                     Email = model.Email,
                     Phone = model.Phone,
@@ -51,8 +59,16 @@ namespace GymManagementBLL.Services.Classes
                 };
 
                 _unitOfWork.GetRepository<Member>().Add(member);
-
-                return true;
+                bool isCreated = _unitOfWork.SaveChanges() > 0;
+                if (!isCreated)
+                {
+                    _attachmentService.Delete(photoName, "members");
+                    return false;
+                }
+                else
+                {
+                    return isCreated;
+                }
             }
             catch (Exception)
             {
@@ -76,7 +92,8 @@ namespace GymManagementBLL.Services.Classes
                 Email = x.Email,
                 Phone = x.Phone,
                 DateOfBirth = x.DateOfBirth.ToShortDateString(),
-                Gender = x.Gender.ToString()
+                Gender = x.Gender.ToString(),
+                isActive = _unitOfWork.MembershipRepository.GetAll(m => m.MemberId == x.Id && m.EndDate > DateTime.Now).FirstOrDefault() != null
             });
 
             return memberViewModel;
@@ -164,7 +181,7 @@ namespace GymManagementBLL.Services.Classes
                 return false;
 
             var activeBookings = _unitOfWork.GetRepository<Booking>()
-                                 .GetAll(x => x.MemberId == memberId && x.Session.StartDate > DateTime.Now);
+                                 .GetAll(x => x.MemberId == memberId && x.Session?.StartDate > DateTime.UtcNow);
 
             if(activeBookings.Any())
                 return false;
@@ -182,7 +199,14 @@ namespace GymManagementBLL.Services.Classes
                 }
 
                 _unitOfWork.GetRepository<Member>().Delete(member);
-                return true;
+                bool isDeleted = _unitOfWork.SaveChanges() > 0;
+                if (member.Photo is not null)
+                {
+                    if (isDeleted)
+                        _attachmentService.Delete(member.Photo, "members");
+                }
+
+                return isDeleted;
             }
             catch (Exception)
             {
@@ -197,10 +221,10 @@ namespace GymManagementBLL.Services.Classes
             if (member is null)
                 return false;
 
-            if(IsEmailExist(model.Email))
-                return false;
+            var emailExist = _unitOfWork.GetRepository<Member>().GetAll(x => x.Email == model.Email && x.Id != memberId);
+            var phoneExist = _unitOfWork.GetRepository<Member>().GetAll(x => x.Phone == model.Phone && x.Id != memberId);
 
-            if(IsPhoneExist(model.Phone)) 
+            if (emailExist.Any() || phoneExist.Any())
                 return false;
 
             member.Email = model.Email;
@@ -211,6 +235,7 @@ namespace GymManagementBLL.Services.Classes
             member.UpdatedAt = DateTime.Now;
 
             _unitOfWork.GetRepository<Member>().Update(member);
+            _unitOfWork.SaveChanges();
             return true;
         }
 

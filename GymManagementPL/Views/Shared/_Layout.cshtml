@@ -1,50 +1,116 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@{
+	var currentController = ViewContext.RouteData.Values["Controller"]?.ToString();
+}
+
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - GymManagementPL</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/GymManagementPL.styles.css" asp-append-version="true" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="~/favicon0.ico" rel="icon" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link href="~/css/site.css" rel="stylesheet" />
+	<title>Power fitness | @ViewData["Title"] </title>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GymManagementPL</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="d-flex flex-column h-100">
+            <div class="mb-4">
+                <div class="d-flex align-items-center gap-3 px-2">
+					<span class="material-symbols-outlined fs-1">
+						exercise
+					</span>
+                    <div>
+                        <h6 class="mb-0 fw-medium">Power Fitness</h6>
+                        <small class="text-secondary">Management</small>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - GymManagementPL - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <nav class="flex-grow-1">
+                <a class="nav-link @(currentController == "Home" ? "active" : "text-black-alternative")" asp-action="Index" asp-controller="Home">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span>Dashboard</span>
+                </a>
+                <a class="nav-link @(currentController == "Member" ? "active" : "")" asp-action="Index" asp-controller="Member">
+                    <span class="material-symbols-outlined">group</span>
+                    <span>Members</span>
+                </a>
+                <a class="nav-link @(currentController == "Trainer" ? "active" : "")" asp-action="Index" asp-controller="Trainer">
+					<span class="material-symbols-outlined">physical_therapy</span>
+                    <span>Trainers</span>
+                </a>
+                <a class="nav-link @(currentController == "Plan" ? "active" : "")" asp-action="Index" asp-controller="Plan">
+                    <span class="material-symbols-outlined">receipt_long</span>
+                    <span>Plans</span>
+                </a>
+                <a class="nav-link @(currentController == "Session" ? "active" : "")" asp-action="Index" asp-controller="Session">
+                    <span class="material-symbols-outlined">dataset</span>
+                    <span>Sessions</span>
+                </a>
+                <a class="nav-link @(currentController == "Membership" ? "active" : "")" asp-action="Index" asp-controller="Membership">
+                    <span class="material-symbols-outlined">diamond</span>
+                    <span>Memberships</span>
+                </a>
+                <a class="nav-link @(currentController == "Booking" ? "active" : "")" asp-action="Index" asp-controller="Booking">
+					<span class="material-symbols-outlined">calendar_month</span>
+                    <span>Sessions Schedule</span>
+                </a>
+            </nav>
+
+            <div class="mt-auto">
+				<form asp-action="Logout" asp-controller="Account" method="post" class="d-inline">
+					<button type="submit" id="logoutBtn" class="btn btn-outline-danger w-100 d-flex justify-content-center">
+						<span>logout </span>
+						<span class="material-symbols-outlined">
+							logout
+						</span>
+					</button>
+				</form>
+            </div>
         </div>
-    </footer>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Header -->
+        <header class="header py-3 px-4">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-3 flex-grow-1">
+                    <button class="btn btn-link d-lg-none p-0" id="sidebarToggle">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn bg-secondary-subtle rounded-circle d-flex align-items-center justify-content-center" id="theme-toggle">
+                        <span class="material-symbols-outlined" id="theme-icon">dark_mode</span>
+                        </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="container-fluid p-4">
+                    @RenderBody()
+        </div>
+    </main>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+@section Scripts {
+	<partial name="_AlertBoxScript" />
+}
+
