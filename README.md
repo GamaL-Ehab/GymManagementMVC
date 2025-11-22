@@ -3,6 +3,17 @@
 A scalable **Gym Management System** built using **ASP.NET MVC** with a clean 3-Layer Architecture (Presentation, Business Logic, and Data Access Layers), applying **Repository**, **Unit of Work**, and **Dependency Injection** patterns for maintainability and testability.  
 Includes user authentication using **ASP.NET Identity**, role-based access (SuperAdmin, Admin), and modular features for managing members, plans, trainers, memberships, and workout sessions.
 
+🔗 **Live Demo:**  
+👉 **[http://live-demo.com](http://powerfitnessgymmanagement.runasp.net/)**
+⚠️ **Important:** Please use **HTTP (not HTTPS)**  
+MonsterASP does not support SSL by default, so `https://` may cause errors.
+
+## 🔐 Login Credentials
+
+| Role        | Email                   | Password   |
+|-------------|-------------------------|------------|
+| SuperAdmin  | Gamal@gmail.com  | P@ssw0rd |
+| Admin       | Ali@gmail.com  | P@ssw0rd |
 ---
 
 ## 📋 Table of Contents
